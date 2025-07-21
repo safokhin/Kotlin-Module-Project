@@ -1,0 +1,1 @@
+const val MAX_SIZE_NOTE_TITLE = 30
