@@ -66,7 +66,7 @@ fun removeNote(archive: Archive) {
     }
 }
 
-/** Открытие заметки  */
+/** Открытие заметки */
 fun openNote(archive: Archive) {
     if(archive.notesList.size == 0) {
         println("Список пуст")
