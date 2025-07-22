@@ -20,31 +20,46 @@ fun showNotesList(archive: Archive) {
         println("Список пуст")
     } else {
         for((index, note) in archive.notesList.withIndex()) {
-            val nameNote = if (note.text.length < MAX_SIZE_NOTE_TITLE) {
-                note.text
-            } else {
-                note.text.substring(0, MAX_SIZE_NOTE_TITLE)
-            }
-
-            println("${index + 1}. $nameNote")
+            println("${index + 1}. ${note.title}")
         }
     }
 }
 
 /** Создание заметки */
 fun createNote(archive: Archive) {
-    while (true) {
-        println("Введите текст заметки")
+    var title = ""
+    var text = ""
 
-        val text = Scanner(System.`in`).nextLine()
+    // Ввод имени
+    while(true) {
+        println("Введите название заметки")
 
-        if (text.isEmpty()) {
-            println("Заметка не должна быть пустой")
+        val titleNote = Scanner(System.`in`).nextLine().trim()
+
+        if (titleNote.isEmpty()) {
+            println("Название не должно быть пустым")
+        } else if(titleNote.length > MAX_SIZE_NOTE_TITLE) {
+            println("Название должно быть менее $MAX_SIZE_NOTE_TITLE символов")
         } else {
-            archive.notesList.add(Note(text))
+            title = titleNote
             break
         }
     }
+
+    while (true) {
+        println("Введите текст заметки")
+
+        val textNote = Scanner(System.`in`).nextLine().trim()
+
+        if (textNote.isEmpty()) {
+            println("Заметка не должна быть пустой")
+        } else {
+            text = textNote
+            break
+        }
+    }
+
+    archive.notesList.add(Note(title, text))
 }
 
 /** Удаление заметки */
@@ -79,7 +94,12 @@ fun openNote(archive: Archive) {
     val noteIndex = getIntScanner(scanner) - 1
 
     if (isArrayItem(archive.notesList, noteIndex)) {
-        println(archive.notesList[noteIndex].text)
+        val note = archive.notesList[noteIndex]
+
+
+        println("==========\n ${note.title}\n=====")
+        println(note.text)
+        println("==========")
     } else {
         println("Заметка не найдена")
     }

@@ -31,7 +31,7 @@ fun createArchive(archivesList: ArrayList<Archive>) {
     while (true) {
         println("Введите название архива")
 
-        val name = Scanner(System.`in`).nextLine()
+        val name = Scanner(System.`in`).nextLine().trim()
 
         if(name.isEmpty()) {
             println("Название не должно быть пустым")
